@@ -4,9 +4,9 @@ const User = require("../model/userModel");
 
 const register = async (req, res) => {
   const { name, email, password } = req.body;
-  //   if (!name || !email || !password) {
-  //     res.status(404).json({ msg: "please fill the fileds" });
-  //   }
+  // if (!name || !email || !password) {
+  //   res.status(404).json({ msg: "please fill the fileds" });
+  // }
 
   // if (User.findOne(email)) {
   //   res.status(404).json({ msg: "email already exists" });
@@ -31,12 +31,13 @@ const register = async (req, res) => {
     }
   } catch (err) {
     res.json({ message: err });
-    res.send({ Error: err });
+    res.send({ err: "there is error" });
+    console.log(err);
   }
 };
 const login = (req, res) => {
   console.log("user login");
-  // res.send("user logged in");
+  res.send("user logged in");
 };
 
 module.exports = { register, login };
