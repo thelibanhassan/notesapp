@@ -1,21 +1,22 @@
 const express = require("express");
 const mongoose = require("mongoose");
+const dotenv = require("dotenv").config()
 const app = express();
 const userRoutes = require("./Routes/userRoutes");
 
-const connectionString = "mongodb://localhost/notesdb";
-// mongoose.connect("mongodb://localhost:27017/notedb", () =>
-//   console.log("DB connected")
-// );
+const port = process.env.PORT || 3000;
 
 mongoose
-  .connect(connectionString, { socketTimeoutMS: 10 })
-  .then(() => console.log("connected"))
+  .connect(process.env.DBURL)
+  .then(() => console.log("DB connected"))
   .catch((e) => console.log(e));
 
 app.use(express.json());
 app.use("/api/notes", userRoutes);
 
-app.listen(3000, (req, res) => {
-  console.log("app running ...");
+app.use((_, res) => {
+  res.send("<h1>Welcome to notes server </h1>");
+});
+app.listen(port, () => {
+  console.log(`app running on http://localhost:${port}`);
 });
