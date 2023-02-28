@@ -8,15 +8,18 @@ const { json } = require("express");
 // Register new user
 const register = async (req, res) => {
   const { name, email, password } = req.body;
+  //check if fields is empty
   if (!name || !email || !password) {
     return res.status(404).json({ msg: "please fill the fileds" });
   }
 
 
   try {
+
+    //check if email exists
     if (await User.findOne({ email })) {
-      res.status(404).json({ msg: "email already exists" });
-      return
+      return res.status(404).json({ msg: "email already exists" });
+
     }
 
 
@@ -61,6 +64,8 @@ const login = async (req, res) => {
       //compare passwords
       const checkPassword = await bcrypt.compare(password, userPass)
       if (checkPassword) {
+
+        //create jwt token
         const token = jwt.sign({ id: user._id }, process.env.SECRET, { expiresIn: "30d" })
         return res.status(200).json({
           msg: "user logged in",
@@ -73,6 +78,11 @@ const login = async (req, res) => {
           msg: "incorrect credentials"
         })
       }
+    }
+    else {
+      res.status(400).json({
+        msg: "incorrect credentials"
+      })
     }
   } catch (err) {
     console.log(err)

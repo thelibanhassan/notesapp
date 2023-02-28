@@ -8,13 +8,19 @@ const protectedRoutes = async (req, res, next) => {
 
     if (req.headers.authorization && req.headers.authorization.startsWith("Bearer")) {
         try {
+            //get the token
             token = req.headers.authorization.split(" ")[1]
+
+            //decode the token
             const decoded = jwt.verify(token, process.env.SECRET)
+
+            //if failed to verify the token
+            if (!decoded) {
+                throw new Error
+            }
             req.user = await User.findById(decoded.id).select('-password')
-            console.log(req.user)
             next()
         } catch (err) {
-            console.log(err)
             res.status(401).json({
                 msg: "Not authorized"
             })
@@ -22,7 +28,7 @@ const protectedRoutes = async (req, res, next) => {
     }
     if (!token) {
         res.status(401).json({
-            msg: "Not authorized, no token"
+            msg: "Not authorized"
         })
     }
 }
