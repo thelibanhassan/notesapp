@@ -7,21 +7,21 @@ const { json } = require("express");
 
 // Register new user
 const register = async (req, res) => {
-  const { name, email, password } = req.body;
+  const { name, email, password, password2 } = req.body;
   //check if fields is empty
   if (!name || !email || !password) {
     return res.status(404).json({ msg: "please fill the fileds" });
   }
 
+  // if (password !== password2) return res.status(405).json({ msg: "Passwords didn't match" });
 
   try {
 
     //check if email exists
     if (await User.findOne({ email })) {
-      return res.status(404).json({ msg: "email already exists" });
+      return res.status(400).json({ msg: "email already exists" });
 
     }
-
 
     const salt = await bcrypt.genSalt(10);
     const hashedpassword = await bcrypt.hash(password, salt);

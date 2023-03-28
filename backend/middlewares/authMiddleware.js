@@ -19,6 +19,7 @@ const protectedRoutes = async (req, res, next) => {
                 throw new Error
             }
             req.user = await User.findById(decoded.id).select('-password')
+            console.log(req.user)
             next()
         } catch (err) {
             res.status(401).json({

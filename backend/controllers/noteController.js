@@ -4,29 +4,33 @@ const User = require("../model/userModel")
 
 //create a note
 const createNote = async (req, res) => {
-    const { title, body } = req.body
+    const { title, content } = req.body
     try {
 
         const user = await User.findOne({ id: req.user.id })
         //check if there is a user 
         if (!user) {
             res.status(404).json({
-                mssg: ""
+                mssg: "no looged in user",
+
             })
         }
         const note = await Note.create({
             title,
-            body,
+            content,
             user: req.user.id
         })
         res.send(note)
     } catch (err) {
+        console.log(err.message)
+
         res.status(404).json({
-            msg: "failed to register"
+            msg: "failed to register",
+            err: err.message,
+            id: req.user.id
         })
     }
 
-    // User.notes.push(user)
 
 }
 //get notes
@@ -43,11 +47,32 @@ const getNotes = async (req, res) => {
     }
 }
 
+
+// GET note
+const getNote = async (req, res) => {
+    const noteId = req.params.id
+
+    try {
+        const note = await Note.findById(noteId)
+        //if not exist
+        if (!note) {
+            res.status(404).json({
+                msg: `No note with id :${noteId}`
+            });
+        }
+        res.send(note)
+    } catch (err) {
+        console.log(err)
+        res.status(404).json({ msg: "Error from note" })
+
+    }
+}
+
 //update note
 const updateNote = async (req, res) => {
     const noteId = req.params.id
 
-    const { title, body } = req.body
+    const { title, content } = req.body
 
     try {
         //check if ID exist in the DB
@@ -62,7 +87,7 @@ const updateNote = async (req, res) => {
         // if exists update the note with the new note
         else {
 
-            const updateNote = await Note.findByIdAndUpdate({ _id: noteId }, { title, body })
+            const updateNote = await Note.findByIdAndUpdate({ _id: noteId }, { title, content })
             res.send(updateNote)
         }
 
@@ -102,4 +127,4 @@ const deleteNote = async (req, res) => {
 
 }
 
-module.exports = { createNote, getNotes, updateNote, deleteNote }
+module.exports = { createNote, getNotes, getNote, updateNote, deleteNote }
