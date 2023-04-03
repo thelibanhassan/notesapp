@@ -39,6 +39,9 @@ export const EditNote = () => {
                     'Authorization': `Bearer ${token}`
                 },
             })
+            if (res.status === 400) {
+                navigate('/')
+            }
             if (res.status === 200) {
                 const data = await res.json()
                 setTitle(data.title)
@@ -69,6 +72,7 @@ export const EditNote = () => {
                 })
 
             })
+
             if (res.status === 200) {
                 console.log(content)
                 navigate('/')
@@ -76,6 +80,7 @@ export const EditNote = () => {
             }
         } catch (err) {
             console.log(err)
+            navigate('/')
         }
     }
     return (

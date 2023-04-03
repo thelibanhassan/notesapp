@@ -79,7 +79,7 @@ const updateNote = async (req, res) => {
         const checkId = await Note.findById(noteId)
         //if not exist
         if (!checkId) {
-            res.status(404).json({
+            res.status(400).json({
                 msg: `No note with id :${noteId}`
             });
         }

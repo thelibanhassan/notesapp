@@ -9,7 +9,7 @@ import Notes from "./pages/notes/Notes";
 import Register from "./pages/register/Register";
 function App() {
   return (
-    <div className="h-full">
+    <div className="h-full box-border	">
       <Router>
         <Routes>
           <Route path="/" exact element={<Notes />} />

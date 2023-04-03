@@ -3,6 +3,7 @@ import { FaPlus, FaRegEdit, FaRegTrashAlt, FaWindowClose } from 'react-icons/fa'
 import { useJwt } from "react-jwt";
 import { useNavigate } from "react-router-dom";
 import { deleteNote } from '../../components/DeleteNote';
+import { Footer } from '../../components/Footer';
 import { Header } from '../../components/Header';
 import NewNote from '../../components/NewNote';
 
@@ -59,41 +60,44 @@ function Notes() {
 
     }, [])
     return (
-        <> <div className='flex items-center shadow  w-screen  '>
-            <Header />
-            <FaPlus className='text-blue-800 text-2xl ml-auto mr-8 cursor-pointer' onClick={() => navigate('/newnote')} />
+        <>
+            <div className='flex items-center shadow  w-98  '>
+                <Header />
+                <FaPlus className='text-blue-800 text-2xl ml-auto mr-8 cursor-pointer' onClick={() => navigate('/newnote')} />
 
-        </div>
-            {showAddform && <NewNote />}
-            <div className=''>
+            </div>
+            <div className='mb-16 border-box '>
 
                 {
-                    notes.map((note) => {
-                        return (
-                            <div className='bg-gray-200 shadow w-2/3 p-6 my-6 mx-auto min-w-8 border-2 border-red rounded-lg '>
-                                <div className='flex justify-between'>
-                                    <input className='font-bold text-md bg-gray-200' value={note.title} />
-                                    <div className='flex gap-3'>
-                                        <FaRegEdit className='text-blue-700 hover:text-xl cursor-pointer' onClick={(e) => {
-                                            navigate(`/${note._id}`)
-                                        }} />
-                                        <FaRegTrashAlt className='text-red-700 hover:text-xl cursor-pointer' onClick={() => deleteNote(note._id)} />
+                    notes ?
+                        notes.map((note) => {
+                            return (
+                                <div className='bg-gray-200 shadow sm:w-2/3 md:w-1/2 w-4/5 p-6 my-6 mx-auto min-w-8 border-2 border-red rounded-lg '>
+                                    <div className='flex justify-between'>
+                                        <p className='font-bold text-md bg-gray-200'>{note.title}</p>
+                                        <div className='flex gap-3'>
+                                            <FaRegEdit className='text-blue-700 hover:text-xl cursor-pointer' onClick={(e) => {
+                                                navigate(`/${note._id}`)
+                                            }} />
+                                            <FaRegTrashAlt className='text-red-700 hover:text-xl cursor-pointer' onClick={() => deleteNote(note._id)} />
 
+                                        </div>
+                                    </div>
+                                    <p className='bg-gray-200 w-full' >{note.content}</p>
+                                    <div className='flex justify-between'>
+                                        <p className='text-gray-500 mt-4'>Created at : {note.createdAt}</p>
+                                        <p className='text-gray-500 mt-4'>Updated at : {note.
+                                            updatedAt}</p>
                                     </div>
                                 </div>
-                                <p className='bg-gray-200 w-full' >{note.content}</p>
-                                <div className='flex justify-between'>
-                                    <p className='text-gray-500 mt-4'>Created at : {note.createdAt}</p>
-                                    <p className='text-gray-500 mt-4'>Updated at : {note.
-                                        updatedAt}</p>
-                                </div>
-                            </div>
-                        )
-                    })
-                    || < div > no notes here </ div>
+                            )
+                        })
+                        : < div > no notes here </ div>
 
                 }
             </div>
+
+            <Footer />
 
         </>
 
