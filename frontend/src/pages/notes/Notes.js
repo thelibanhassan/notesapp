@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react';
-import { FaPlus, FaRegEdit, FaRegTrashAlt, FaWindowClose } from 'react-icons/fa';
+import { FaPlus, FaRegEdit, FaRegTrashAlt } from 'react-icons/fa';
 import { useJwt } from "react-jwt";
 import { useNavigate } from "react-router-dom";
 import { deleteNote } from '../../components/DeleteNote';
 import { Footer } from '../../components/Footer';
 import { Header } from '../../components/Header';
-import NewNote from '../../components/NewNote';
+import UserLogout from '../../components/UserLogout';
 
 function Notes() {
     let token = JSON.parse(localStorage.getItem('token'))
@@ -64,7 +64,7 @@ function Notes() {
             <div className='flex items-center shadow  w-98  '>
                 <Header />
                 <FaPlus className='text-blue-800 text-2xl ml-auto mr-8 cursor-pointer' onClick={() => navigate('/newnote')} />
-
+                <UserLogout />
             </div>
             <div className='mb-16 border-box '>
 
