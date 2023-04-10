@@ -91,11 +91,13 @@ export const EditNote = () => {
                 e.preventDefault()
                 updateNote(id)
             }}>
-                <label className='text-blue-600 w-1/2'>Title:
+                <label className='text-blue-600 sm:w-1/2 w-4/5'>Title:
                     <input className=' outline-blue-600 border-2 border-blue-300  rounded-md text-gray-900 w-full p-4' type='text' value={title} onChange={e => setTitle(e.target.value)} /></label>
-                <label className='text-blue-600 w-1/2  '>Note: <textarea className='[resize:none] overflow-auto h-auto outline-blue-600 border-2 border-blue-300  rounded-md text-gray-900 w-full p-4' value={content} onChange={e => setContent(e.target.value)} /></label>
-                <button className="bg-green-500 font-medium font-extrabold text-gray-50 w-1/2 px-4 py-3 rounded-md hover:bg-green-600" type='submit'>Update</button>
-                <button className="bg-red-500 font-medium font-extrabold text-gray-50 w-1/2 px-4 py-3 rounded-md hover:bg-red-600" type='submit' onClick={() => navigate('/')}>Cancel</button>
+                <label className='text-blue-600 sm:w-1/2 w-4/5 '>Note: <textarea className='[resize:none] overflow-auto h-48 outline-blue-600 border-2 border-blue-300  rounded-md text-gray-900 w-full p-4' value={content} onChange={e => setContent(e.target.value)} /></label>
+                <div className='sm:w-1/2 w-4/5 flex justify-around'>
+                    <button className="bg-green-500 font-medium font-extrabold text-gray-50 w-2/5 px-4 py-3 rounded-md hover:bg-green-600" type='submit'>Update</button>
+                    <button className="bg-red-500 font-medium font-extrabold text-gray-50 w-2/5 px-4 py-3 rounded-md hover:bg-red-600" type='submit' onClick={() => navigate('/')}>Cancel</button>
+                </div>
             </form>
         </>
 

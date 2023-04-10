@@ -63,7 +63,7 @@ function Notes() {
         <>
             <div className='flex items-center shadow  w-98  '>
                 <Header />
-                <FaPlus className='text-blue-800 text-2xl ml-auto mr-8 cursor-pointer' onClick={() => navigate('/newnote')} />
+                <FaPlus className='text-blue-800 text-2xl ml-auto mr-8 cursor-pointer hover:text-blue-500' onClick={() => navigate('/newnote')} />
                 <UserLogout />
             </div>
             <div className='mb-16 border-box '>

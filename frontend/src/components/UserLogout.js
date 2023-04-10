@@ -1,28 +1,26 @@
 import React, { useState } from 'react'
-import { FaUserAlt } from 'react-icons/fa'
+import { FaSignOutAlt, FaUserAlt } from 'react-icons/fa'
 import { useNavigate } from 'react-router-dom'
 
-const UserLogout = ({ id }) => {
+const UserLogout = () => {
     const navigate = useNavigate()
     const [showLogout, setShowLogout] = useState(false)
-    const [name, setName] = useState('')
-    console.log(id)
 
 
 
-
+    // logout func and clears the localStorage from the token
     const logout = () => {
         localStorage.clear()
         navigate('/login')
 
     }
     return (
-        <div className='relative mr-10 p-5 '>
-            <FaUserAlt onClick={() => setShowLogout(!showLogout)} className='cursor-pointer text-blue-600' />
-            {showLogout && <div className='absolute buttom-0 bg-blue-100 text-blue-700 p-2 mt-2 rounded border'>
+        <div onMouseEnter={() => setShowLogout(true)} onMouseLeave={() => setShowLogout(false)} className='relative mr-20 p-5 '>
+            <FaUserAlt className='cursor-pointer text-blue-600 ' />
+            {showLogout &&
 
-                <button onClick={logout} className='hover:text-red-600'>Logout</button>
-            </div>
+                <button onClick={logout} className='absolute [bottom:-2.5rem] bg-gray-50 border text-blue-700 px-4 py-3 mt-2 rounded border hover:text-red-600 flex items-center gap-1 font-extrabold'><FaSignOutAlt />Logout</button>
+
             }
         </div>
     )

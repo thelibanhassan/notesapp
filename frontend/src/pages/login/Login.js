@@ -49,7 +49,7 @@ function Login() {
                     <FaRegUser />
                     <h1>Login</h1>
                 </div>
-                <form onSubmit={loginUser} className='bg-gray-100 py-8   mx-auto	'>
+                <form onSubmit={loginUser} className=' py-8   mx-auto	'>
 
                     <div className="w-75 my-4 flex-1">
                         <input className="h-10 w-80 rounded-md border border-blue-500 border-2 indent-3 outline-0" type="email" value={email} onChange={e => { setEmail(e.target.value) }} placeholder="Email" required />

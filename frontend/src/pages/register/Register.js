@@ -26,7 +26,6 @@ function Register() {
             })
         };
         if (password !== passwordConfirm) {
-            console.log("passwords didn't match")
 
             setComparePass(true)
             return setTimeout(() => {
@@ -40,7 +39,6 @@ function Register() {
             if (res.status === 201) {
                 const data = res.json()
                 navigate('/login')
-                console.log("succesfully created")
             }
             if (res.status === 400) {
                 setUserExists(true)
@@ -64,7 +62,7 @@ function Register() {
                     <h1 >Register</h1>
                 </div>
 
-                <form onSubmit={registerUser} className='bg-gray-100 py-8   mx-auto	'>
+                <form onSubmit={registerUser} className=' py-8   mx-auto	'>
                     <div className="w-50 my-4 flex-1	">
                         <input className="h-10 w-80 rounded-md border border-blue-500 border-2 indent-3 outline-0" type='name' value={name} onChange={e => { setName(e.target.value) }} placeholder="Write Your Name" required />
                     </div>
