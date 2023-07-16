@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import { useJwt } from "react-jwt";
 
 import { useNavigate, useParams } from "react-router-dom";
 import { Header } from '../../components/Header';
@@ -7,9 +6,8 @@ import { Header } from '../../components/Header';
 
 
 export const EditNote = () => {
-    let token = JSON.parse(localStorage.getItem('token'))
-    const { decodedToken, isExpired } = useJwt(token);
     const navigate = useNavigate()
+    let token = JSON.parse(localStorage.getItem('token'))
 
     const { id } = useParams();
 
@@ -22,17 +20,6 @@ export const EditNote = () => {
     }, [])
     const getNote = async (id) => {
         try {
-            if (isExpired) {
-                navigate('/login')
-                console.log('token is expird')
-                throw new Error()
-            }
-            if (!token) {
-                navigate('/login')
-                console.log('no token')
-                throw new Error()
-            }
-
             const res = await fetch(`http://localhost:3001/api/notes/${id}`, {
                 method: 'GET',
                 headers: {
@@ -83,6 +70,8 @@ export const EditNote = () => {
             navigate('/')
         }
     }
+
+
     return (
         <>
             <Header />

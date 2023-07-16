@@ -1,9 +1,10 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { FaRegUser } from 'react-icons/fa';
 import { Link, useNavigate } from 'react-router-dom';
+import { AuthContext } from '../../components/AuthContext';
 import { Header } from '../../components/Header';
 function Login() {
-
+    const isUserLoggedIn = useContext(AuthContext)
     const navigate = useNavigate()
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
@@ -34,7 +35,6 @@ function Login() {
             console.log("succesfully logged in")
             localStorage.setItem("token", JSON.stringify(data.token))
             navigate("/")
-            console.log(data.token)
         }
         catch (err) {
             // setWrongCred(true)

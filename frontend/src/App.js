@@ -1,27 +1,36 @@
+import React from "react";
 import {
-  BrowserRouter as Router, Route, Routes
+  Route,
+  BrowserRouter as Router,
+  Routes
 } from "react-router-dom";
-import NewNote from "./components/NewNote";
+import { ProtectedRoute } from "./components/ProtectedRoute";
 import './index.css';
 import { EditNote } from "./pages/editNote/EditNote";
 import Login from "./pages/login/Login";
+import NewNote from "./pages/newNote/NewNote";
 import Notes from "./pages/notes/Notes";
 import Register from "./pages/register/Register";
+import AuthContextProvider from "./components/AuthContext";
+
 function App() {
+
   return (
-    <div className="h-full box-border	">
-      <Router>
-        <Routes>
-          <Route path="/" exact element={<Notes />} />
-          <Route path="/register" element={<Register />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/newnote" element={<NewNote />} />
-          <Route path="/:id" element={<EditNote />} />
-        </Routes>
+    <AuthContextProvider>
+      <div className="h-full box-border	">
+        <Router>
+          <Routes>
+            <Route path="/register" element={<Register />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/" exact element={<ProtectedRoute><Notes /></ProtectedRoute>} />
+            <Route path="/newnote" element={<ProtectedRoute><NewNote /></ProtectedRoute>} />
+            <Route path="/:id" element={<ProtectedRoute><EditNote /></ProtectedRoute>} />
+          </Routes>
 
-      </Router>
+        </Router>
 
-    </div>
+      </div>
+    </AuthContextProvider>
   );
 }
 

@@ -66,7 +66,7 @@ const login = async (req, res) => {
       if (checkPassword) {
 
         //create jwt token
-        const token = jwt.sign({ id: user._id }, process.env.SECRET, { expiresIn: "30d" })
+        const token = jwt.sign({ id: user._id }, process.env.SECRET, { expiresIn: "90d" })
         return res.status(200).json({
           msg: "user logged in",
           id: user._id,

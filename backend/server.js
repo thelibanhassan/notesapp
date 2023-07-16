@@ -6,6 +6,7 @@ const app = express();
 const userRoutes = require("./Routes/userRoutes");
 
 const port = process.env.PORT || 3001;
+mongoose.set('strictQuery', false);
 
 mongoose
   .connect(process.env.DBURL)

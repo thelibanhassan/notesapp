@@ -5,16 +5,9 @@ const User = require("../model/userModel")
 //create a note
 const createNote = async (req, res) => {
     const { title, content } = req.body
+    const user = await User.findOne({ id: req.user.id })
     try {
 
-        const user = await User.findOne({ id: req.user.id })
-        //check if there is a user 
-        if (!user) {
-            res.status(404).json({
-                mssg: "no looged in user",
-
-            })
-        }
         const note = await Note.create({
             title,
             content,
@@ -36,6 +29,7 @@ const createNote = async (req, res) => {
 //get notes
 
 const getNotes = async (req, res) => {
+    console.log(req.user.id)
     try {
 
         const notes = await Note.find({ user: req.user.id })

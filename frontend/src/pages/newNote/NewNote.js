@@ -1,57 +1,47 @@
 import React, { useState } from 'react';
-import { useJwt } from "react-jwt";
 import { useNavigate } from "react-router-dom";
-import { Header } from './Header';
+import { Header } from '../../components/Header';
 
 
 
 const NewNote = () => {
-    let token = JSON.parse(localStorage.getItem('token'))
-    const { decodedToken, isExpired } = useJwt(token);
-
     const navigate = useNavigate()
+    let token = JSON.parse(localStorage.getItem('token'))
 
     const [title, setTitle] = useState('')
     const [content, setContent] = useState('')
 
 
-    const requestOptions = {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-            'Authorization': `Bearer ${token}`
-        },
-        body: JSON.stringify({
-            title,
-            content,
-
-        })
-    };
 
     const createNote = async (e) => {
         e.preventDefault()
-        try {
-            if (isExpired) {
-                navigate('/login')
-                console.log('token is expird')
-                throw new Error()
-            }
-            if (!token) {
-                navigate('/login')
-                console.log('no token')
-                throw new Error()
-            }
-            const res = await fetch('http://localhost:3001/api/notes/', requestOptions)
-            if (res.status === 200) {
-                const data = res.json()
-                navigate('/')
 
+        try {
+
+            const res = await fetch('http://localhost:3001/api/notes/', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`
+                },
+                body: JSON.stringify({
+                    title,
+                    content,
+
+                })
+            })
+            if (res.ok) navigate('/')
+            else if (res.status === 401) {
+                alert('You are not Authorized')
+                navigate('/login')
             }
+
+
         } catch (err) {
             console.log('failed to create a note', err)
+            alert('failed to create new note')
         }
     }
-
 
 
     return (

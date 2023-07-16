@@ -1,15 +1,7 @@
 
-
-
-
-let token = JSON.parse(localStorage.getItem('token'))
-
-
-
-
-
 //DELETE Note
 const deleteNote = async id => {
+    let token = JSON.parse(localStorage.getItem('token'))
     try {
 
         const res = await fetch(`http://localhost:3001/api/notes/${id}`, {
@@ -22,7 +14,8 @@ const deleteNote = async id => {
 
         })
         if (res.status === 200) console.log('deleted')
-    } catch (err) {
+    }
+    catch (err) {
         console.log(err)
     }
 
